@@ -64,7 +64,15 @@ def main() -> int:
         print(f"             http://localhost:{port}/slots     <- per-slot state")
     else:
         print(f"  endpoints: http://localhost:{port}/v1/embeddings")
-    print(f"\n  {' '.join(cmd)}\n")
+    print(f"\n  {subprocess.list2cmdline(cmd)}\n", flush=True)
+
+    # Windows execv does not quote arguments containing spaces. Popen's
+    # Windows command-line conversion preserves model and runtime paths.
+    if sys.platform == "win32":
+        try:
+            return subprocess.run(cmd, check=False).returncode
+        except KeyboardInterrupt:
+            return 130
 
     try:
         os.execv(cmd[0], cmd)          # hand the terminal over; Ctrl-C stops the server

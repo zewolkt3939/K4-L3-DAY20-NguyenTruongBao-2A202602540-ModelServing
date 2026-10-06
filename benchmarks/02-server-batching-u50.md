@@ -17,6 +17,6 @@ they arrived too far apart. A peak approaching `--parallel` means the scheduler 
 genuinely packing concurrent requests into shared decode steps.
 `requests_deferred` went above zero: more requests arrived than there were slots, so some waited. That wait is the queue time in your P95.
 
-## Observation ? b?n nh?p c?n review
+## Observation
 
-Peak sampled average busy slots l? 3.86/4 (96.4%), processing ??t 4 v? deferred ??t 46. ??y l? b?ng ch?ng continuous batching v? queueing. Effective concurrency 21.6 t?nh c? th?i gian ch? n?n kh?ng ph?i s? slot ?ang decode; kh?ng c?n b?ng peak 3.86. Gauge n?y l? trung b?nh theo decode step, g?m l?ch s? request t? c?ng server; kh?ng ph?i instantaneous batch width. CSV c? 15 sample; chu k? th?c t? g?m th?i gian scrape c?ng sleep, kh?ng ph?i ch?nh x?c 2 gi?y/sample.
+Peak sampled average busy slots là 3,86/4 (96,5%), processing đạt 4 và deferred đạt 46. Đây là bằng chứng continuous batching và queueing. Effective concurrency 21.6 tính cả thời gian chờ nên không phải số slot đang decode; không cần bằng peak 3,86. Gauge này là trung bình theo decode step, gồm lịch sử request từ cùng server; không phải instantaneous batch width. CSV có 15 sample; chu kỳ thực tế gồm thời gian scrape cộng sleep, không phải chính xác 2 giây/sample.

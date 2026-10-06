@@ -14,10 +14,10 @@ Completed requests: `Q4_K_M` 10/10 · `UD-Q2_K_XL` 10/10
 - **TPOT** = per-output-token decode cost, bounded by memory bandwidth. `decode tok/s = 1000 / TPOT_p50`.
 - `UD-Q2_K_XL` and `Q4_K_M` decode within 2% of each other here, for 0.11 GB difference on disk.
 
-## Observation ? b?n nh?p c?n review
+## Observation
 
-Q2 decode nhanh h?n kho?ng 0,8% v? nh? h?n 0,11 GiB; ch?a c? l?i ?ch t?c ?? r?. ?? h?i c?ng c?u tr?n c? hai. C?u d?i b? c?t ? 200 token; khi y?u c?u ng?n, c? hai v?n nh?m goodput v?i data rate, Q2 c?n tr? v? d? sai. ?? xu?t gi? Q4, ki?m tra factuality tr??c s? d?ng.
+Q2 decode nhanh hơn khoảng 0,8% và nhỏ hơn 0,11 GiB; chưa có lợi ích tốc độ rõ. Đã hỏi cùng câu trên cả hai. Câu dài bị cắt ở 200 token; khi yêu cầu ngắn, cả hai vẫn nhầm goodput với data rate, Q2 còn trả ví dụ sai. Đề xuất giữ Q4, kiểm tra factuality trước sử dụng.
 
-Hai l??t comparison d?ng c?ng prompt/settings cho t?ng c?p (temperature=0, seed=42, max_tokens=200). L??t ??u c? hai finish_reason=length; l??t ng?n finish_reason=stop. M?t c?p c?u h?i kh?ng ?? k?t lu?n ch?t l??ng chung do quantization. Smoke tr? completion v? metrics ??ng, nh?ng ??nh ngh?a goodput c?a model sai. RAG c?ng b?a expansion TTFT/TPOT v? tr?n prefix caching v?i disaggregated serving. Gi? nguy?n output ?? ??nh gi?; kh?ng s?a c?u tr? l?i nh?m l?m ??p k?t qu?.
+Hai lượt comparison dùng cùng prompt/settings cho từng cặp (temperature=0, seed=42, max_tokens=200). Lượt đầu cả hai finish_reason=length; lượt ngắn finish_reason=stop. Hai cặp câu hỏi không đủ kết luận chất lượng chung do quantization. Smoke trả completion và metrics đúng, nhưng định nghĩa goodput của model sai. RAG cũng bịa tên đầy đủ TTFT/TPOT và trộn prefix caching với disaggregated serving. Giữ nguyên raw output để đánh giá; không sửa câu trả lời nhằm làm đẹp kết quả.
 
-10 prompt/quant; nearest-rank P95 v? P99 c?ng b?ng m?u l?n nh?t ? n=10. Ch?nh l?ch decode <1% ch?a ?? ch?ng minh speedup ?n ??nh. C?c quant mixed precision kh?ng ph?i to?n b? tensor ??u ??ng 2 hay 4 bit.
+10 prompt/quant; nearest-rank P95 và P99 cùng bằng mẫu lớn nhất ở n=10. Chênh lệch decode <1% chưa đủ chứng minh speedup ổn định. Các quant mixed precision không phải toàn bộ tensor đều đúng 2 hay 4 bit.

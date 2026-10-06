@@ -21,6 +21,6 @@ Use this in your run:
 LAB_N_THREADS=4 make bench
 ```
 
-## Explanation ? b?n nh?p c?n review
+## Explanation
 
-Knee ? 4 lu?ng: 34.13 tok/s; 8 lu?ng ??t 33.84, g?n nh? kh?ng t?ng; 16 lu?ng gi?m c?n 25.01. M?y c? 4 core v?t l?, n?n SMT kh?ng b? sung core hay memory channel. Plateau ph? h?p v?i gi?i h?n t?i nguy?n chung; oversubscription t?ng tranh ch?p v? chi ph? scheduling. ??y l? gi?i th?ch ph? h?p s? ?o, ch?a ph?i ch?ng minh memory bandwidth v? kh?ng ?o performance counter. Default 4 lu?ng ?? t?i ?u trong grid n?y; 1?4 l? ph?p so s?nh ki?m so?t, kh?ng ph?i speedup so v?i default.
+Knee ở 4 luồng: 34.13 tok/s; 8 luồng đạt 33.84, gần như không tăng; 16 luồng giảm còn 25.01. Máy có 4 core vật lý, nên SMT không bổ sung core hay memory channel. Plateau phù hợp với giới hạn tài nguyên chung; oversubscription tăng tranh chấp và chi phí scheduling. Đây là giải thích phù hợp số đo, chưa phải chứng minh memory bandwidth vì không đo performance counter. Default 4 luồng đã tối ưu trong grid này; 1→4 là phép so sánh kiểm soát, không phải speedup so với default.
