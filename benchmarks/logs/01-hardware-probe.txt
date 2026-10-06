@@ -1,0 +1,26 @@
+────────────────────────────────────────────────────────────────
+  Platform : Windows 11 (AMD64)
+  CPU      : 11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz
+             4 physical · 8 logical cores
+  RAM      : 15.7 GB
+  GPU      : nvidia_cuda, vulkan
+             - nvidia: NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB
+             - vulkan: device present
+────────────────────────────────────────────────────────────────
+
+  Model         : Qwen3.5 0.8B  [LAB_MODEL=qwen35-0.8b]
+                  unsloth/Qwen3.5-0.8B-GGUF  (~0.9 GB)
+                  primary  Qwen3.5-0.8B-Q4_K_M.gguf  (0.5 GB)
+                  compare  Qwen3.5-0.8B-UD-Q2_K_XL.gguf  (0.39 GB)
+                  chosen because: chosen with LAB_MODEL
+  Other option  : LAB_MODEL=gemma4-e2b  ->  Gemma 4 E2B, ~5.2 GB, needs 8.0 GB RAM
+  llama.cpp     : prebuilt release b10488  (llama-b10488-bin-win-cpu-x64.zip)
+  GPU offload   : OFF -- an accelerator is installed but this llama.cpp build enumerates no devices -- offload would silently run on CPU
+                  base track is unaffected (100 pts need no GPU).
+                  to use the CUDA you have, build from source:
+                  LLAMA_CMAKE_FLAGS=-DGGML_CUDA=ON make build-llama
+  source build  : -DGGML_CUDA=ON  (bonus B1 -- not used by the base track)
+  Tracks open   : 01-measure, 02-serve, 03-integrate, bonus/sweeps
+────────────────────────────────────────────────────────────────
+
+Saved hardware.json -- every other track reads this.

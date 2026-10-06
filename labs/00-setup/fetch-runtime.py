@@ -12,6 +12,7 @@ and is new enough to load Gemma 4 (architecture "gemma4", April 2026).
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import pathlib
 import platform
@@ -180,7 +181,9 @@ def download(asset: str, dest: pathlib.Path) -> pathlib.Path:
                     print(f"\r    {done / 1e6:6.1f} / {total / 1e6:.1f} MB "
                           f"({100 * done / total:3.0f}%)", end="", flush=True)
             print(f"\r    {done / 1e6:6.1f} MB downloaded" + " " * 20)
-    except (urllib.error.URLError, urllib.error.HTTPError) as exc:
+            if total and done != total:
+                raise OSError(f"Incomplete download: received {done} of {total} bytes")
+    except (OSError, urllib.error.URLError, http.client.IncompleteRead) as exc:
         labkit.die(
             f"Download failed: {exc}",
             f"Fetch it manually from https://github.com/{REPO}/releases/tag/{BUILD}",
@@ -199,6 +202,12 @@ def extract(archive: pathlib.Path, into: pathlib.Path) -> None:
             except TypeError:
                 tf.extractall(into)
     elif archive.suffix == ".zip":
+        if not zipfile.is_zipfile(archive):
+            labkit.die(
+                f"Runtime download is incomplete or invalid: {archive.name}",
+                "Re-download the release archive; do not use partial binaries.",
+                "See docs/MANUAL-DOWNLOAD.md for manual setup.",
+            )
         with zipfile.ZipFile(archive) as zf:
             zf.extractall(into)
         # zipfile drops the executable bit.

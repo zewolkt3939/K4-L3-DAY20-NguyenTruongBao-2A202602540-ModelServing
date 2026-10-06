@@ -1,0 +1,21 @@
+
+────────────────────────────────────────────────────────────────
+  Smoke test against http://localhost:8080
+────────────────────────────────────────────────────────────────
+  /metrics before : tokens_predicted_total = 0
+
+==> POST http://localhost:8080/v1/chat/completions
+
+Goodput@SLO is a service-level objective (SLO) defined as the ratio of the actual throughput achieved by a service to the expected throughput, measured in units per second.
+
+  server timings: prompt 37 tok in 265 ms  ->  139.7 tok/s prefill
+                  decode 38 tok in 1194 ms  ->  31.0 tok/s
+
+==> GET http://localhost:8080/metrics   (rubric item 7 -- screenshot this)
+   llamacpp:tokens_predicted_total                   38.00   (+38)
+   llamacpp:prompt_tokens_total                      37.00   (+37)
+   llamacpp:n_decode_total                           40.00   (+40)
+   llamacpp:requests_processing                       0.00
+   llamacpp:n_busy_slots_per_decode                   1.00   (+1)
+
+OK -- served a completion and tokens_predicted_total is 38 (non-zero).

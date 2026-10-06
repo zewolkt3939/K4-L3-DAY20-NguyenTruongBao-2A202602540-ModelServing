@@ -1,0 +1,174 @@
+[
+  {
+    "quant": "Q4_K_M",
+    "question": "Explain the difference between throughput and goodput@SLO, with one example.",
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "**Throughput** and **Goodput@SLO** are two distinct metrics used in cloud computing and distributed systems to measure performance, but they measure different things and serve different purposes.\n\n### 1. Throughput\n**Throughput** measures the total amount of data processed over a specific period of time. It is essentially the raw volume of data moving through a system.\n\n*   **Formula:** Throughput = Total Data Sent / Time Period\n*   **Key Characteristics:**\n    *   It is a **volume-based** metric.\n    *   It does not account for latency or the quality of the data.\n    *   It is often used for **capacity planning** and determining how much storage or processing power is needed to handle a specific workload.\n*   **Example:** If a server processes 100 gigabytes (GB) of data every hour, the throughput is **100 GB/hour**. This tells you how much data volume is"
+          }
+        }
+      ],
+      "created": 1791278030,
+      "model": "D:\\Ai Thuc chien\\All Lab\\Track 2\\K4-L3-DAY20-NguyenTruongBao-2A202602540-ModelServing\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+      "system_fingerprint": "b10488-9d77fa172",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 200,
+        "prompt_tokens": 29,
+        "total_tokens": 229,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-QvXlV3q9S937KAACqQu1ijKfkYci6zMN",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 29,
+        "prompt_ms": 182.277,
+        "prompt_per_token_ms": 6.285413793103448,
+        "prompt_per_second": 159.09851489765578,
+        "predicted_n": 200,
+        "predicted_ms": 6721.088,
+        "predicted_per_token_ms": 33.77431155778894,
+        "predicted_per_second": 29.608301513088357
+      }
+    }
+  },
+  {
+    "quant": "UD-Q2_K_XL",
+    "question": "Explain the difference between throughput and goodput@SLO, with one example.",
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "The term **Goodput** is not a standard industry term like \"throughput\" or \"latency.\" It is a specific, technical term used in the context of **SLO (Service Level Optimization)** and **SLO-based scheduling**.\n\nTo understand the difference between **throughput** and **Goodput**, we must look at how they are used in the context of scheduling, resource allocation, and system performance.\n\n### 1. Throughput\n**Definition:** Throughput refers to the **rate** at which data is processed or transmitted. It represents the actual speed or capacity of the system.\n*   **Analogy:** Think of a car. If the engine is 100% full, the car is at 100% capacity. If it's 50% full, it's at 50% capacity.\n\n**Key Characteristics:**\n*   **Throughput** is a **metric** (a number).\n*   It"
+          }
+        }
+      ],
+      "created": 1791278040,
+      "model": "D:\\Ai Thuc chien\\All Lab\\Track 2\\K4-L3-DAY20-NguyenTruongBao-2A202602540-ModelServing\\models\\Qwen3.5-0.8B-UD-Q2_K_XL.gguf",
+      "system_fingerprint": "b10488-9d77fa172",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 200,
+        "prompt_tokens": 29,
+        "total_tokens": 229,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-U79vn156bJPWKsBbwMqIsKGvzMJ1upf2",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 29,
+        "prompt_ms": 340.508,
+        "prompt_per_token_ms": 11.741655172413793,
+        "prompt_per_second": 85.166868326148,
+        "predicted_n": 200,
+        "predicted_ms": 6469.071,
+        "predicted_per_token_ms": 32.507894472361805,
+        "predicted_per_second": 30.76175852761548
+      }
+    }
+  },
+  {
+    "quant": "Q4_K_M",
+    "question": "In two sentences, explain throughput versus goodput@SLO and give one numerical example.",
+    "settings": {
+      "max_tokens": 200,
+      "temperature": 0,
+      "seed": 42,
+      "system": "Answer concisely, in at most 60 words."
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Throughput measures total data transferred per second, while Goodput@SLO calculates the actual data rate achieved at a specific Service Level Objective. For example, a system with 100 Mbps throughput and 90% Goodput@SLO delivers 90 Mbps to the client."
+          }
+        }
+      ],
+      "created": 1791278079,
+      "model": "D:\\Ai Thuc chien\\All Lab\\Track 2\\K4-L3-DAY20-NguyenTruongBao-2A202602540-ModelServing\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+      "system_fingerprint": "b10488-9d77fa172",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 60,
+        "prompt_tokens": 48,
+        "total_tokens": 108,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-eOeaMFMoDJivPl2IWKlR39bwRrb3leIa",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 48,
+        "prompt_ms": 300.436,
+        "prompt_per_token_ms": 6.259083333333333,
+        "prompt_per_second": 159.76780412467215,
+        "predicted_n": 60,
+        "predicted_ms": 1719.939,
+        "predicted_per_token_ms": 29.15150847457627,
+        "predicted_per_second": 34.30354216050686
+      }
+    }
+  },
+  {
+    "quant": "UD-Q2_K_XL",
+    "question": "In two sentences, explain throughput versus goodput@SLO and give one numerical example.",
+    "settings": {
+      "max_tokens": 200,
+      "temperature": 0,
+      "seed": 42,
+      "system": "Answer concisely, in at most 60 words."
+    },
+    "response": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Throughput represents the actual data rate a system can handle, while Goodput@SLO is the actual throughput at the specific load point. For example, a system might have a throughput of 100 Mbps, but if the load is 100% of the load point, the Goodput@SLO is 100%."
+          }
+        }
+      ],
+      "created": 1791278085,
+      "model": "D:\\Ai Thuc chien\\All Lab\\Track 2\\K4-L3-DAY20-NguyenTruongBao-2A202602540-ModelServing\\models\\Qwen3.5-0.8B-UD-Q2_K_XL.gguf",
+      "system_fingerprint": "b10488-9d77fa172",
+      "object": "chat.completion",
+      "usage": {
+        "completion_tokens": 72,
+        "prompt_tokens": 48,
+        "total_tokens": 120,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "id": "chatcmpl-cKJHXNYN6NMtIemAi6Ii5VJI2cIPNjSH",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 48,
+        "prompt_ms": 486.24,
+        "prompt_per_token_ms": 10.13,
+        "prompt_per_second": 98.7166831194472,
+        "predicted_n": 72,
+        "predicted_ms": 2044.663,
+        "predicted_per_token_ms": 28.79807042253521,
+        "predicted_per_second": 34.72454873981678
+      }
+    }
+  }
+]

@@ -1,0 +1,26 @@
+
+────────────────────────────────────────────────────────────────
+  Recording http://localhost:8080/metrics for 65s
+────────────────────────────────────────────────────────────────
+  Drive load in another terminal (make load-50) or these will all read idle.
+
+   busy_slots= 3.70  processing=  4  deferred= 46  tok_pred=    2068
+   busy_slots= 3.73  processing=  4  deferred= 46  tok_pred=    2260
+   busy_slots= 3.75  processing=  4  deferred= 45  tok_pred=    2448
+   busy_slots= 3.76  processing=  4  deferred= 46  tok_pred=    2533
+   busy_slots= 3.77  processing=  4  deferred= 43  tok_pred=    2821
+   busy_slots= 3.79  processing=  4  deferred= 45  tok_pred=    2988
+   busy_slots= 3.80  processing=  4  deferred= 45  tok_pred=    3180
+   busy_slots= 3.81  processing=  4  deferred= 46  tok_pred=    3355
+   busy_slots= 3.82  processing=  4  deferred= 46  tok_pred=    3498
+   busy_slots= 3.83  processing=  4  deferred= 46  tok_pred=    3642
+   busy_slots= 3.83  processing=  4  deferred= 46  tok_pred=    3781
+   busy_slots= 3.84  processing=  4  deferred= 45  tok_pred=    4013
+   busy_slots= 3.85  processing=  4  deferred= 45  tok_pred=    4239
+   busy_slots= 3.85  processing=  3  deferred= 45  tok_pred=    4287
+   busy_slots= 3.86  processing=  4  deferred= 40  tok_pred=    4431
+
+==> Wrote benchmarks\02-server-metrics-u50.csv
+==> Wrote benchmarks\02-server-batching-u50.md
+
+  Highest sampled n_busy_slots_per_decode = 3.86 of 4 slots

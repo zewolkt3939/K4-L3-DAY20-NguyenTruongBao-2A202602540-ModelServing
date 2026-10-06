@@ -63,6 +63,33 @@ def detect_cpu() -> dict:
         except OSError:
             info["model"] = "unknown"
     elif sys.platform == "win32":
+        # Registry and native topology work even when WMI/CIM is denied.
+        import ctypes
+        import winreg
+
+        try:
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
+                               r"HARDWARE\DESCRIPTION\System\CentralProcessor\0") as key:
+                info["model"] = winreg.QueryValueEx(key, "ProcessorNameString")[0].strip()
+        except OSError:
+            pass
+        length = ctypes.c_ulong(0)
+        topology = ctypes.windll.kernel32.GetLogicalProcessorInformationEx
+        topology(0, None, ctypes.byref(length))
+        if length.value:
+            buffer = ctypes.create_string_buffer(length.value)
+            if topology(0, buffer, ctypes.byref(length)):
+                offset, cores = 0, 0
+                while offset + 8 <= length.value:
+                    size = ctypes.c_ulong.from_buffer(buffer, offset + 4).value
+                    if size < 8 or offset + size > length.value:
+                        break
+                    cores += 1
+                    offset += size
+                if cores:
+                    info["cores_physical"] = cores
+        if info.get("model") and info.get("cores_physical"):
+            return info
         rc, out = run(
             ["powershell", "-NoProfile", "-Command",
              "(Get-CimInstance Win32_Processor | Select-Object -First 1 "
@@ -95,14 +122,26 @@ def detect_ram_gb() -> float:
         except OSError:
             pass
     elif sys.platform == "win32":
+        import ctypes
+
+        class MemoryStatus(ctypes.Structure):
+            _fields_ = [("length", ctypes.c_ulong), ("load", ctypes.c_ulong)] + [
+                (name, ctypes.c_ulonglong) for name in
+                ("total_phys", "avail_phys", "total_page", "avail_page",
+                 "total_virtual", "avail_virtual", "avail_extended")
+            ]
+
+        status = MemoryStatus()
+        status.length = ctypes.sizeof(status)
+        if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
+            return round(status.total_phys / 1024**3, 1)
         rc, out = run(
             ["powershell", "-NoProfile", "-Command",
              "(Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory"],
             timeout=20,
         )
-        digits = "".join(c for c in out if c.isdigit())
-        if digits:
-            return round(int(digits) / 1024**3, 1)
+        if rc == 0 and out.strip().isdigit():
+            return round(int(out.strip()) / 1024**3, 1)
     return 0.0
 
 

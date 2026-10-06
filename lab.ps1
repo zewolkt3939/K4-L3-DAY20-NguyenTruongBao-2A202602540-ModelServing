@@ -1,4 +1,4 @@
-<#
+﻿<#
   Windows runner — the equivalent of `make <target>` for students without make.
 
   Works in Windows PowerShell 5.1 (powershell.exe) and PowerShell 7+ (pwsh).
@@ -20,6 +20,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONUNBUFFERED = '1'
 Set-Location $PSScriptRoot
 
 $VenvPy = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
@@ -68,6 +70,7 @@ switch ($Target) {
         Write-Host ""
         Write-Host "Integrate (03)"
         Write-Host "  pipeline       RAG pipeline -> llama-server"
+        Write-Host "  run-base       Run all base measurements with console logs (after setup)"
         Write-Host ""
         Write-Host "Submission"
         Write-Host "  verify         Check submission readiness"
@@ -84,11 +87,16 @@ switch ($Target) {
         Write-Host ""
     }
 
-    'probe'   { & $SysPy labs\00-setup\detect-hardware.py }
+    'probe'   { & $SysPy labs\00-setup\detect-hardware.py; exit $LASTEXITCODE }
     'setup'   {
-        if (-not (Test-Path '.venv')) { & $SysPy -m venv .venv }
+        if (-not (Test-Path '.venv')) {
+            & $SysPy -m venv .venv
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        }
         & $VenvPy -m pip install --upgrade pip wheel | Out-Null
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
         & $VenvPy -m pip install -r requirements.txt
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
         Py labs\00-setup\setup.py
     }
     'runtime' { Py labs\00-setup\fetch-runtime.py --force }
@@ -105,6 +113,7 @@ switch ($Target) {
     'load-report' { Py labs\02-serve\load-report.py }
 
     'pipeline' { Py labs\03-integrate\pipeline.py @Rest }
+    'run-base' { Py scripts\run_base.py }
 
     # verify must work with system Python too: the grader has no .venv.
     'verify' { & $SysPy scripts\verify.py; exit $LASTEXITCODE }

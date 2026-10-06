@@ -141,7 +141,7 @@ def answer(query: str, base: str, embed_url: str | None, k: int = 3) -> dict:
     return {
         "query": query,
         "answer": text.strip(),
-        "contexts": [{"id": d.id, "score": round(d.score, 4)} for d in docs],
+        "contexts": [{"id": d.id, "text": d.text, "score": round(d.score, 4)} for d in docs],
         "embed_backend": backend,
         "timings_ms": {
             **t_retr,
@@ -180,6 +180,8 @@ def main() -> int:
         res = answer(q, args.base_url, args.embed_url, k=args.k)
         results.append(res)
         print(f"  contexts : {[(c['id'], c['score']) for c in res['contexts']]}")
+        for context in res["contexts"]:
+            print(f"    [{context['id']}] {context['text']}")
         print(f"  timings  : {res['timings_ms']}")
         st = res["server_timings"]
         if st.get("predicted_n"):

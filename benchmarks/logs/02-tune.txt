@@ -1,0 +1,47 @@
+
+────────────────────────────────────────────────────────────────
+  Thread sweep on Qwen3.5-0.8B-Q4_K_M.gguf
+────────────────────────────────────────────────────────────────
+  cores   : 4 physical · 8 logical
+  grid    : [1, 2, 4, 8, 16]
+  metric  : tg128   ngl: 0
+  (each point runs llama-bench -- a few minutes total)
+
+   -t   1   tg128 =    14.3 tok/s
+   -t   2   tg128 =    26.3 tok/s
+   -t   4   tg128 =    34.1 tok/s
+   -t   8   tg128 =    33.8 tok/s
+   -t  16   tg128 =    25.0 tok/s
+
+# 01 - Tune: thread-count sweep
+
+Model `Qwen3.5-0.8B-Q4_K_M.gguf` · host `Windows-AMD64` · llama.cpp `b10488`
+CPU: **4 physical · 8 logical** cores · `ngl=0` · metric `tg128`
+
+| threads (-t) | tg128 (tok/s) | vs best |
+|:--|--:|--:|
+| 1 | 14.3 | 42% |
+| 2 | 26.3 | 77% |
+| 4 | 34.1 | 100% |
+| 8 | 33.8 | 99% |
+| 16 | 25.0 | 73% |
+
+**Best**: `-t 4` at 34.1 tok/s
+**Slowest tested**: `-t 1` at 14.3 tok/s (2.38x spread)
+**Against the physical-core default** (`-t 4`, 34.1 tok/s): 1.00x
+
+Use this in your run:
+
+```bash
+LAB_N_THREADS=4 make bench
+```
+
+## Your explanation (required -- replace this line)
+
+_Where is the knee, and why there? If the peak sits at your physical core count
+and drops above it, say what the extra threads are competing for. If your curve
+does something else -- flat, or still climbing at 2x logical cores -- say that
+instead and reason about why. A result that contradicts the expected shape is
+worth more than one that matches it, as long as you explain it._
+
+==> Wrote benchmarks\01-tuning-tg128.md
